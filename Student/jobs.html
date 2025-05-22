@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workora - Job Listings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .jobs-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        .filters-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            height: fit-content;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .filter-option label {
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .job-listings {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .job-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .job-title {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .company-details h3 {
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .company-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .job-description {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .apply-now-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-now-btn:hover {
+            background-color: #357abd;
+        }
+
+        @media (max-width: 768px) {
+            .jobs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-section {
+                position: sticky;
+                top: 80px;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>Workora</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+            <a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Apply Job</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="settings.html" class="settings-btn"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+    </nav>
+
+    <div class="jobs-container">
+        <div class="filters-section">
+            <input type="text" class="search-input" placeholder="Search jobs...">
+            
+            <div class="filter-group">
+                <h3>Job Type</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="internship" name="job-type">
+                        <label for="internship">Internship</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="part-time" name="job-type">
+                        <label for="part-time">Part-time</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="full-time" name="job-type">
+                        <label for="full-time">Full-time</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Location</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="colombo" name="location">
+                        <label for="colombo">Colombo</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="kandy" name="location">
+                        <label for="kandy">Kandy</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="galle" name="location">
+                        <label for="galle">Galle</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="remote" name="location">
+                        <label for="remote">Remote</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Category</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" id="software" name="category">
+                        <label for="software">Software Development</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="design" name="category">
+                        <label for="design">UI/UX Design</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="marketing" name="category">
+                        <label for="marketing">Digital Marketing</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="data" name="category">
+                        <label for="data">Data Science</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-listings">
+            <!-- Sample Job Card -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="company-info">
+                        <img src="https://via.placeholder.com/50" alt="Company Logo" class="company-logo">
+                        <div class="company-details">
+                            <h3>Tech Solutions Inc.</h3>
+                            <p>Colombo, Sri Lanka</p>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="job-title">Frontend Developer Intern</h2>
+                <div class="job-tags">
+                    <span class="tag">Internship</span>
+                    <span class="tag">Remote</span>
+                    <span class="tag">3 months</span>
+                </div>
+                <p class="job-description">
+                    We are looking for a passionate Frontend Developer intern to join our team. 
+                    The ideal candidate should have a strong foundation in HTML, CSS, and JavaScript, 
+                    and be familiar with modern frontend frameworks.
+                </p>
+                <div class="job-footer">
+                    <div class="job-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Posted 2 days ago</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>10 applicants</span>
+                        </div>
+                    </div>
+                    <button class="apply-now-btn">Apply Now</button>
+                </div>
+            </div>
+
+            <!-- More job cards will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
