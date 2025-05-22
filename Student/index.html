@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workora - Student Job Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>Workora</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+            <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+            <a href="jobs.html"><i class="fas fa-briefcase"></i> Apply Job</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="settings.html" class="settings-btn"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+        <div class="nav-auth">
+            <a href="auth.html" class="login-btn">Login</a>
+            <a href="auth.html" class="signup-btn">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Post Feed -->
+        <div class="post-feed">
+            <!-- Sample Post -->
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://via.placeholder.com/40" alt="Profile" class="profile-pic">
+                    <div class="post-info">
+                        <h3>John Doe</h3>
+                        <span class="post-time">2 hours ago</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h2>Software Developer Internship</h2>
+                    <p>Looking for a passionate software developer intern to join our team. Must have knowledge in HTML, CSS, and JavaScript.</p>
+                    <div class="post-tags">
+                        <span class="tag">Internship</span>
+                        <span class="tag">Remote</span>
+                        <span class="tag">Software Development</span>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                    <button class="apply-btn"><i class="fas fa-paper-plane"></i> Apply</button>
+                </div>
+            </div>
+
+            <!-- More posts will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 

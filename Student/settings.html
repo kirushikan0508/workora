@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workora - Settings</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .settings-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        .settings-header {
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+        .settings-section {
+            margin-bottom: 2rem;
+        }
+        .settings-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .settings-group {
+            margin-bottom: 1.5rem;
+        }
+        .settings-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        .settings-group input[type="text"],
+        .settings-group input[type="email"],
+        .settings-group input[type="password"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        .settings-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .save-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .save-btn:hover {
+            background-color: #357abd;
+        }
+        .settings-actions {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .settings-btn-action {
+            background: #f7fbff;
+            color: var(--primary-color);
+            border: 1.5px solid #e3eaf5;
+            border-radius: 10px;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.08rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .settings-btn-action:hover {
+            background: #e3f0ff;
+            color: #357abd;
+            border-color: #4a90e2;
+        }
+        .logout-btn {
+            color: #e67e22;
+            border-color: #f6c08b;
+        }
+        .logout-btn:hover {
+            background: #fff6e3;
+            color: #d35400;
+            border-color: #e67e22;
+        }
+        .delete-btn {
+            color: #e74c3c;
+            border-color: #f5b7b1;
+        }
+        .delete-btn:hover {
+            background: #fff0ee;
+            color: #c0392b;
+            border-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>Workora</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+            <a href="jobs.html"><i class="fas fa-briefcase"></i> Apply Job</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="settings.html" class="active settings-btn"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+    </nav>
+    <div class="settings-container">
+        <h2 class="settings-header"><i class="fas fa-cog"></i> Account Settings</h2>
+        
+        <div class="settings-actions">
+            
+            <button class="settings-btn-action" onclick="window.location.href='change_password.html'">
+                <i class="fas fa-key"></i> Change Password
+            </button>
+            <button class="settings-btn-action" onclick="window.location.href='change_email.html'">
+                <i class="fas fa-envelope"></i> Change Email Address
+            </button>
+            <button class="settings-btn-action delete-btn" onclick="window.location.href='delete_account.html'">
+                <i class="fas fa-user-slash"></i> Delete Account
+            </button>
+            <button class="settings-btn-action logout-btn" onclick="window.location.href='logout.html'">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
