@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workora - Job Seeker Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .dashboard-header {
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+        .ad-form, .posted-jobs {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .ad-form h3, .posted-jobs h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #357abd;
+        }
+        .job-list {
+            margin-top: 1rem;
+        }
+        .job-card {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .job-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.3rem;
+        }
+        .job-card .job-actions {
+            margin-top: 0.7rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .job-card .action-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .job-card .action-btn:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h1>Workora</h1>
+        </div>
+        <div class="nav-links">
+            <a href="jobseeker.html" class="active"><i class="fas fa-briefcase"></i> Dashboard</a>
+            <a href="alljobs.html"><i class="fas fa-list"></i> All Jobs</a>
+            <a href="contactjob.html"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+    </nav>
+    <div class="dashboard-container">
+        <h2 class="dashboard-header"><i class="fas fa-briefcase"></i> Job Seeker Dashboard</h2>
+        <div class="ad-form">
+            <h3>Create Job Advertisement</h3>
+            <form id="job-ad-form">
+                <div class="form-group">
+                    <label for="job-title">Job Title</label>
+                    <input type="text" id="job-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-description">Description</label>
+                    <textarea id="job-description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="job-type">Job Type</label>
+                    <select id="job-type" required>
+                        <option value="">Select type</option>
+                        <option value="internship">Internship</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="full-time">Full-time</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="job-location">Location</label>
+                    <input type="text" id="job-location" required>
+                </div>
+                <div class="form-group">
+                    <label for="job-category">Category</label>
+                    <input type="text" id="job-category" required>
+                </div>
+                <button type="submit" class="submit-btn">Post Job</button>
+            </form>
+        </div>
+        <div class="posted-jobs">
+            <h3>Your Posted Jobs</h3>
+            <div class="job-list" id="job-list">
+                <!-- Job cards will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+    <script>
+    // Load jobs from localStorage or start with an empty array
+    let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+    const jobForm = document.getElementById('job-ad-form');
+    const jobList = document.getElementById('job-list');
+
+    function saveJobs() {
+        localStorage.setItem('jobs', JSON.stringify(jobs));
+    }
+
+    function renderJobs() {
+        jobList.innerHTML = '';
+        if (jobs.length === 0) {
+            jobList.innerHTML = '<p>No jobs posted yet.</p>';
+            return;
+        }
+        jobs.forEach((job, idx) => {
+            const card = document.createElement('div');
+            card.className = 'job-card';
+            card.innerHTML = `
+                <h4>${job.title}</h4>
+                <p>${job.description}</p>
+                <div><strong>Type:</strong> ${job.type} | <strong>Location:</strong> ${job.location} | <strong>Category:</strong> ${job.category}</div>
+                <div class="job-actions">
+                    <button class="action-btn" onclick="editJob(${idx})"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="action-btn" onclick="deleteJob(${idx})"><i class="fas fa-trash"></i> Delete</button>
+                    <button class="like-btn" id="like-btn-${idx}">
+                        <i class="far fa-heart"></i> Like <span id="like-count-${idx}">${job.likes || 0}</span>
+                    </button>
+                </div>
+            `;
+            jobList.appendChild(card);
+        });
+
+        // Attach like button event listeners
+        jobs.forEach((job, idx) => {
+            const likeBtn = document.getElementById(`like-btn-${idx}`);
+            const likeCount = document.getElementById(`like-count-${idx}`);
+            likeBtn.addEventListener('click', function() {
+                job.likes = (job.likes || 0) + 1;
+                likeCount.textContent = job.likes;
+                saveJobs(); // Save updated likes
+            });
+        });
+    }
+
+    jobForm.onsubmit = function(e) {
+        e.preventDefault();
+        const job = {
+            title: document.getElementById('job-title').value,
+            description: document.getElementById('job-description').value,
+            type: document.getElementById('job-type').value,
+            location: document.getElementById('job-location').value,
+            category: document.getElementById('job-category').value,
+            likes: 0 // initialize likes
+        };
+        jobs.push(job);
+        saveJobs();
+        renderJobs();
+        jobForm.reset();
+    };
+
+    window.deleteJob = function(idx) {
+        jobs.splice(idx, 1);
+        saveJobs();
+        renderJobs();
+    };
+
+    window.editJob = function(idx) {
+        const job = jobs[idx];
+        document.getElementById('job-title').value = job.title;
+        document.getElementById('job-description').value = job.description;
+        document.getElementById('job-type').value = job.type;
+        document.getElementById('job-location').value = job.location;
+        document.getElementById('job-category').value = job.category;
+        jobs.splice(idx, 1);
+        saveJobs();
+        renderJobs();
+    };
+
+    renderJobs();
+    </script>
+</body>
+</html> 
