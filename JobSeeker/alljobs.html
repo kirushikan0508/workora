@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workora - All Jobs</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="alljobs">
+    <nav class="navbar">
+        <div class="nav-brand"><h1>Workora</h1></div>
+        <div class="nav-links">
+            <a href="jobseeker.html"><i class="fas fa-briefcase"></i> Dashboard</a>
+            <a href="alljobs.html" class="active"><i class="fas fa-list"></i> All Jobs</a>
+            <a href="contactjob.html"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+    </nav>
+    <div class="job-list" id="job-list">
+        <!-- Jobs will be rendered here -->
+    </div>
+    <script>
+    // Load jobs from localStorage or use sample data
+    let jobs = JSON.parse(localStorage.getItem('jobs')) || [
+        {
+            title: "Web Developer Intern",
+            description: "Assist in building web applications.",
+            type: "Internship",
+            location: "Remote",
+            category: "IT",
+            likes: 2,
+            applications: [
+                { name: "Alice", email: "alice@email.com", resume: "alice_resume.pdf" },
+                { name: "Bob", email: "bob@email.com", resume: "bob_resume.pdf" }
+            ]
+        },
+        {
+            title: "Part-time Designer",
+            description: "Create graphics for social media.",
+            type: "Part-time",
+            location: "Colombo",
+            category: "Design",
+            likes: 1,
+            applications: [
+                { name: "Charlie", email: "charlie@email.com", resume: "charlie_resume.pdf" }
+            ]
+        }
+    ];
+
+    function renderJobs() {
+        const jobList = document.getElementById('job-list');
+        jobList.innerHTML = `<h2>Total Jobs Posted: ${jobs.length}</h2>`;
+        jobs.forEach((job, idx) => {
+            const card = document.createElement('div');
+            card.className = 'job-card';
+            card.innerHTML = `
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">${job.title}</div>
+                        <div>${job.type} | ${job.location} | ${job.category}</div>
+                    </div>
+                    <div class="application-count">
+                        <i class="fas fa-users"></i> ${job.applications ? job.applications.length : 0} Applications
+                    </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <button class="view-apps-btn" onclick="toggleApplications(${idx})">
+                        View Applications
+                    </button>
+                    <a href="https://forms.gle/your-google-form-link" target="_blank" class="view-apps-btn" style="background:#34a853;margin-left:10px;">
+                        Google Form
+                    </a>
+                </div>
+                <div id="applications-${idx}" class="hidden">
+                    ${job.applications && job.applications.length > 0 ? `
+                        <table class="applications-table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Resume</th>
+                            </tr>
+                            ${job.applications.map(app => `
+                                <tr>
+                                    <td>${app.name}</td>
+                                    <td>${app.email}</td>
+                                    <td>${app.resume ? `<a href=\"#\">${app.resume}</a>` : 'N/A'}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                    ` : `<div style=\"margin-top:1rem;color:#888;\">No applications yet.</div>`}
+                </div>
+            `;
+            jobList.appendChild(card);
+        });
+    }
+
+    // Toggle application table visibility
+    function toggleApplications(idx) {
+        const el = document.getElementById(`applications-${idx}`);
+        el.classList.toggle('hidden');
+    }
+    window.toggleApplications = toggleApplications;
+
+    renderJobs();
+    </script>
+</body>
+</html> 
